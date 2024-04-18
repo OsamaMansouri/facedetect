@@ -1,0 +1,15 @@
+{
+  "type": "commonjs",
+  "dependencies": {
+    "axios": "^1.6.8",
+    "body-parser": "^1.20.2",
+    "desktop-screenshot": "^0.1.1",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.9",
+    "express": "^4.19.2",
+    "mongoose": "^8.3.0",
+    "node-webcam": "^0.8.2",
+    "replicate": "^0.29.1",
+    "socket.io": "^4.7.5"
+  }
+}

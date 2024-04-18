@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modern Design with Sequential Steps</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- Google Fonts - Montserrat -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Montserrat"
+    />
+
+    <script src="face-api.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <style>
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      span,
+      button,
+      input,
+      a {
+        font-weight: 800 !important;
+        text-transform: uppercase;
+        color: #fff;
+        text-decoration: none;
+      }
+      /* Ensure the image covers the entire div */
+      .cover-image {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+      /* Apply Montserrat font to body */
+      body {
+        font-family: "Montserrat", sans-serif;
+        background: #d81e46;
+        color: #fff;
+        font-weight: 800 !important;
+      }
+      /* Custom styling for steps container */
+      .steps-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      /* Custom styling for steps */
+      .step {
+        display: none;
+        transition: opacity 0.5s ease-in-out;
+      }
+      .step.active {
+        display: block;
+      }
+      .step-content {
+        padding: 20px;
+        border-radius: 5px;
+        background-color: #d81e46;
+      }
+      .btn-container {
+        margin-top: 20px;
+      }
+      .btn-link {
+        background-color: #007bff;
+        border-color: #007bff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+      .btn-link:hover {
+        background-color: #0056b3;
+        color: #fff;
+      }
+      /* Add this CSS for styling the loader */
+      .loader {
+        border: 8px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 8px solid #3498db;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -25px;
+        margin-left: -25px;
+        display: none; /* Hide the loader by default */
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <form id="userForm">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="steps-container">
+              <!-- First div with image -->
+              <div class="col-md-6 col-sd-12">
+                <img src="bc.png" class="cover-image" alt="Cover Image" />
+              </div>
+              <!-- Second div with steps -->
+              <div class="col-md-6 col-sd-12">
+                <!-- Step 1: Choose Language -->
+                <!--<div class="step step-1 active">
+                  <div class="step-content">
+                    <h4>Please select your language</h4>
+                    <br />
+                    <div class="form-group">
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="language"
+                          id="francaisRadio"
+                          value="francais"
+                        />
+                        <label class="form-check-label" for="francaisRadio"
+                          >Français</label
+                        >
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="language"
+                          id="anglaisRadio"
+                          value="anglais"
+                        />
+                        <label class="form-check-label" for="anglaisRadio"
+                          >Anglais</label
+                        >
+                      </div>
+                    </div>
+                    <div class="btn-container">
+                      <button class="btn btn-primary next-step">Next</button>
+                    </div>
+                  </div>
+                </div> -->
+                <!-- Step 2: Fill Form -->
+                <div class="step step-2 active">
+                  <div class="step-content">
+                    <h4>Step 2: Please fill this form</h4>
+                    <br />
+                    <!-- Your form content here -->
+                    <div class="form-group">
+                      <input
+                        style="width: 70%; box-shadow: inset 0 0 10px 1px #999"
+                        type="text"
+                        class="form-control"
+                        id="firstName"
+                        placeholder="First Name"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <input
+                        style="width: 70%; box-shadow: inset 0 0 10px 1px #999"
+                        type="text"
+                        class="form-control"
+                        id="lastName"
+                        placeholder="Last Name"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <input
+                        style="width: 70%; box-shadow: inset 0 0 10px 1px #999"
+                        type="email"
+                        class="form-control"
+                        id="email"
+                        placeholder="name@example.com"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="sex"
+                          id="maleRadio"
+                          value="male"
+                        />
+                        <label class="form-check-label" for="maleRadio"
+                          >Male</label
+                        >
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="sex"
+                          id="femaleRadio"
+                          value="female"
+                        />
+                        <label class="form-check-label" for="femaleRadio"
+                          >Female</label
+                        >
+                      </div>
+                    </div>
+                    <div class="btn-container">
+                      <div class="btn btn-secondary prev-step">Back</div>
+                      <div class="btn btn-primary next-step">Next</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Step 3: Submit -->
+                <div class="step step-3">
+                  <div class="step-content">
+                    <h4>Step 3: Submit</h4>
+                    <br />
+                    <p>Click the button below to submit your request.</p>
+                    <div class="btn-container">
+                      <div class="btn btn-secondary prev-step">Back</div>
+                      <button class="btn btn-primary" id="submitFormButton">
+                        Submit
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <!-- Step 4: Switch to New Container -->
+                <div class="step step-4">
+                  <div class="step-content">
+                    <h4>Step 4: Switch to New Container</h4>
+                    <br />
+                    <p>
+                      Click the button below to switch to the new container.
+                    </p>
+                    <div class="btn-container">
+                      <button class="btn btn-primary" id="goToNewContainer">
+                        Go to New Container
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <!-- Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $(".step-1").addClass("active");
+
+        // When 'Next' button is clicked, show next step
+        $(".next-step").click(function () {
+          var currentStep = $(this).closest(".step");
+          currentStep.removeClass("active").fadeOut(500, function () {
+            currentStep.next(".step").fadeIn(500).addClass("active");
+          });
+        });
+
+        // When 'Back' button is clicked, show previous step
+        $(".prev-step").click(function () {
+          var currentStep = $(this).closest(".step");
+          currentStep.removeClass("active").fadeOut(500, function () {
+            currentStep.prev(".step").fadeIn(500).addClass("active");
+          });
+        });
+
+        // Submit form data
+        $("#submitFormButton").click(function () {
+          // Collect form data
+          var formData = {
+            firstName: $("#firstName").val(),
+            lastName: $("#lastName").val(),
+            email: $("#email").val(),
+            sexe: $("input[name='sex']:checked").val(),
+          };
+
+          // Emit form data to server
+          $.ajax({
+            type: "POST",
+            url: "/submitForm",
+            data: JSON.stringify(formData),
+            contentType: "application/json",
+            success: function (response) {
+              console.log("Form submitted successfully:", response);
+              // Add any success message or action here
+            },
+            error: function (error) {
+              console.error("Error submitting form:", error);
+              // Add any error handling here
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
