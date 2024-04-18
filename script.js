@@ -37,7 +37,7 @@ const io = socketIO(server);
 const PORT = process.env.PORT || 3000;
 
 // Connect to MongoDB
-mongoose.connect("mongodb://localhost:27017/facedetect", {
+mongoose.connect(process.env.DB, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -125,6 +125,7 @@ io.on("connection", (socket) => {
 
       io.emit("screenshot", screenshotPath);
       console.log(`Screenshot path updated for user with ID: ${lastUserId}`);
+      io.emit("redirect", `/user/testconv/${lastUserId}`);
     } catch (error) {
       console.error("Error capturing screenshot:", error);
     }
@@ -249,7 +250,8 @@ app.get("/user/convert/:userId", async (req, res) => {
               await screenshot.save();
 
               // Continue with further processing or handling of the generated output
-              res.json({ cartoonImageURL, backgroundPath });
+              //res.json({ cartoonImageURL, backgroundPath });
+              res.redirect(`/user/${userId}`);
             } catch (error) {
               console.error("Error processing background output:", error);
               res.status(500).send("Error processing background output.");
@@ -257,7 +259,11 @@ app.get("/user/convert/:userId", async (req, res) => {
           })
           .catch((error) => {
             console.error("Error converting image to cartoon:", error);
-            res.status(500).send("Error converting image to cartoon.");
+            const errorMessage =
+              "NSFW content detected in input images. Please try taking another photo.";
+            res.redirect(
+              `/screen/${userId}?error=${encodeURIComponent(errorMessage)}`
+            );
           });
       }
     );
@@ -302,9 +308,24 @@ app.get("/screen/:userId", async (req, res) => {
     const userId = req.params.userId;
     // Find the user data based on the provided user ID
     const userData = await Screenshot.find({ userId: userId });
+    const error = req.query.error || null;
 
     // Render user.ejs template with user data
-    res.render("screen", { userData });
+    res.render("screen", { userData, error });
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    res.status(500).send("Internal server error");
+  }
+});
+
+app.get("/user/testconv/:userId", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    // Find the user data based on the provided user ID
+    const userData = await Screenshot.find({ userId: userId });
+
+    // Render user.ejs template with user data
+    res.render("convert", { userData });
   } catch (error) {
     console.error("Error fetching user data:", error);
     res.status(500).send("Internal server error");

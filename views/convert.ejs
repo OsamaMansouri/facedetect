@@ -147,54 +147,53 @@
     </style>
   </head>
   <body>
+    <% userData.forEach((screenshot) => { %>
     <div class="container-fluid new-container">
       <div class="row">
         <div class="col-md-12">
           <div class="steps-container">
             <!-- First div with image -->
-            <div id="camera-container" class="col-md-6 col-sd-12">
-              <video id="camera-video" autoplay></video>
+            <div class="col-md-6 col-sd-12">
               <img
-                id="camera-overlay"
-                src="/sc.png"
+                src="<%= screenshot.screenshotPath %>"
                 class="cover-image"
                 alt="Cover Image"
               />
-              <!-- <canvas id="overlay" width="640" height="480"></canvas>-->
             </div>
             <!-- Second div with steps -->
             <div class="col-md-6 col-sd-12">
               <!-- Step 1: Choose Language -->
               <div class="step step-1 active">
                 <div class="step-content">
-                  <% if (error) { %>
-                  <div class="alert alert-danger" role="alert">
-                    <%= error %>
-                  </div>
-
-                  <% } %> <% userData.forEach((screenshot) => { %>
                   <!-- Add more user data fields here as needed -->
 
-                  <h4 style="opacity: 0.42">ÉTAPE 3/3</h4>
+                  <h4 style="opacity: 0.42">ÉTAPE 4</h4>
                   <br />
                   <p style="font-size: 40px">
-                    VEUILLEZ CENTRER VOTRE VISAGE DANS LE CERCLE <%=
-                    screenshot.firstName %>
+                    Convertir Maintenant <%= screenshot.firstName %>
                   </p>
                   <br />
-                  <% }); %>
+
                   <br />
-                  <div class="btn-container">
-                    <button
-                      class="btn btn-primary"
-                      id="takeScreenshotButton"
-                      disabled
-                    >
-                      VALIDER
-                    </button>
-                    <br /><br />
-                  </div>
-                  <div id="loader" class="loader"></div>
+                  <!-- Form to trigger conversion -->
+                  <form
+                    id="convertForm"
+                    action="/user/convert/<%= screenshot.userId %>"
+                    method="GET"
+                  >
+                    <div class="btn-container">
+                      <button id="convertButton" class="btn btn-primary">
+                        CONVERTIR
+                      </button>
+                      <br /><br />
+                      <p>
+                        Merci de noter que la conversion prends au moin 1 min
+                      </p>
+                    </div>
+                  </form>
+
+                  <!-- Loader -->
+                  <div id="loader" class="loader" style="display: none"></div>
                 </div>
               </div>
             </div>
@@ -202,32 +201,30 @@
         </div>
       </div>
     </div>
-    <!-- Bootstrap JS -->
-    <script src="/js/client.js" defer></script>
+    <% }); %>
+
+    <!-- Bootstrap JS and jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-      $(document).ready(function () {
-        $(".step-1").addClass("active");
+      // Function to show loader when conversion starts
+      function showLoader() {
+        var loader = document.getElementById("loader");
+        loader.style.display = "block";
+      }
 
-        // When 'Next' button is clicked, show next step
-        $(".next-step").click(function () {
-          var currentStep = $(this).closest(".step");
-          currentStep.removeClass("active").fadeOut(500, function () {
-            currentStep.next(".step").fadeIn(500).addClass("active");
-          });
-        });
+      // Attach click event listener to the button
+      document
+        .getElementById("convertButton")
+        .addEventListener("click", showLoader);
 
-        // When 'Back' button is clicked, show previous step
-        $(".prev-step").click(function () {
-          var currentStep = $(this).closest(".step");
-          currentStep.removeClass("active").fadeOut(500, function () {
-            currentStep.prev(".step").fadeIn(500).addClass("active");
-          });
-        });
-      });
+      // Function to hide loader when conversion completes
+      function hideLoader() {
+        var loader = document.getElementById("loader");
+        loader.style.display = "none";
+      }
     </script>
   </body>
 </html>

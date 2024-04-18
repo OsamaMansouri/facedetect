@@ -1,4 +1,16 @@
+// client.js
+
 const socket = io();
+
+// Function to handle redirection
+const redirectTo = (destination) => {
+  console.log("Redirecting to:", destination);
+  window.location.href = destination;
+};
+
+// Listen for 'redirect' event from the server
+socket.on("redirect", redirectTo);
+
 const video = document.getElementById("camera-video");
 const overlay = document.getElementById("overlay");
 const takeScreenshotButton = document.getElementById("takeScreenshotButton");
