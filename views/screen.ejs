@@ -182,16 +182,20 @@
                     screenshot.firstName %>
                   </p>
                   <br />
-                  <% }); %>
+
                   <br />
                   <div class="btn-container">
                     <button
                       class="btn btn-primary"
                       id="takeScreenshotButton"
                       disabled
+                      onclick="takeScreenshot('<%= screenshot.userId %>')"
                     >
                       VALIDER
                     </button>
+
+                    <% }); %>
+
                     <br /><br />
                   </div>
                   <div id="loader" class="loader"></div>

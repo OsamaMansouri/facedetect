@@ -76,7 +76,7 @@ initCamera();
 //};
 
 // Function to take a screenshot
-const takeScreenshot = async () => {
+const takeScreenshot = async (userId) => {
   try {
     loader.style.display = "block"; // Show the loader when taking a screenshot
 
@@ -118,7 +118,7 @@ const takeScreenshot = async () => {
       );
 
       const screenshotData = faceCanvas.toDataURL("image/jpeg");
-      socket.emit("takeScreenshot", screenshotData);
+      socket.emit("takeScreenshot", screenshotData, userId); // Include userId parameter
 
       // Add text element below the button
       const textElement = document.createElement("p");

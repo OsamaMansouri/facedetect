@@ -85,7 +85,7 @@ io.on("connection", (socket) => {
   console.log("A client connected");
 
   // Listen for takeScreenshot event
-  socket.on("takeScreenshot", async (screenshotData) => {
+  socket.on("takeScreenshot", async (screenshotData, userId) => {
     try {
       //console.log("Received screenshot data:", screenshotData);
 
@@ -113,19 +113,19 @@ io.on("connection", (socket) => {
 
       // Find the user with the last user ID and update the screenshotPath
       const userToUpdate = await Screenshot.findOneAndUpdate(
-        { userId: lastUserId },
+        { userId: userId }, // Use the provided userId here
         { screenshotPath: screenshotPath },
         { new: true }
       );
 
       if (!userToUpdate) {
-        console.error(`No user found with userID: ${lastUserId}`);
+        console.error(`No user found with userID: ${userId}`);
         return;
       }
 
       io.emit("screenshot", screenshotPath);
-      console.log(`Screenshot path updated for user with ID: ${lastUserId}`);
-      io.emit("redirect", `/user/testconv/${lastUserId}`);
+      console.log(`Screenshot path updated for user with ID: ${userId}`);
+      io.emit("redirect", `/user/testconv/${userId}`);
     } catch (error) {
       console.error("Error capturing screenshot:", error);
     }
