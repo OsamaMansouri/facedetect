@@ -153,13 +153,25 @@
         <div class="col-md-12">
           <div class="steps-container">
             <!-- First div with image -->
-            <div class="col-md-6 col-sd-12">
+
+            <div
+              class="col-md-6 col-sd-12"
+              style="
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              "
+            >
+              <% const imagePath = screenshot.screenshotPath.replace(/\\/g,
+              '/').split('public/')[1]; %>
               <img
-                src="<%= screenshot.screenshotPath %>"
                 class="cover-image"
-                alt="Cover Image"
+                src="/<%= imagePath %>"
+                alt="Centered Image"
+                style="max-width: 700px"
               />
             </div>
+
             <!-- Second div with steps -->
             <div class="col-md-6 col-sd-12">
               <!-- Step 1: Choose Language -->
