@@ -37,13 +37,10 @@ const io = socketIO(server);
 const PORT = process.env.PORT || 3000;
 
 // Connect to MongoDB
-mongoose.connect(
-  "mongodb+srv://mansouriosama:lsmL59y4W4u2y1zx@facedetect.rxzwuaq.mongodb.net/",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+mongoose.connect("mongodb://localhost:27017/facedetect", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 // Import the Screenshot model
 const Screenshot = require("./models");
