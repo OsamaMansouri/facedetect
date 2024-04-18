@@ -38,7 +38,7 @@ const PORT = process.env.PORT || 3000;
 
 // Connect to MongoDB
 mongoose.connect(
-  "mongodb+srv://mansouriosama:W22kKYsh3R1tTMjG@cluster0.x5rqnav.mongodb.net/?retryWrites=true&w=majority",
+  "mongodb+srv://mansouriosama:lsmL59y4W4u2y1zx@facedetect.rxzwuaq.mongodb.net/",
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
