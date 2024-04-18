@@ -76,13 +76,13 @@
     <div class="main">
       <img src="/mask-group-4@1x.png" alt="Centered Image" />
 
-      <% userData.forEach((screenshot) => { %>
+      <% userData.forEach((screenshot) => { %> <% const imagePath =
+      screenshot.backgroundOutput.replace(/\\/g, '/').split('public/')[1]; %>
       <img
         class="image-screenface"
-        src="/backgroundOutputs/<%= screenshot.backgroundOutput.split('\\').pop() %>"
+        src="/<%= imagePath %>"
         alt="Centered Image"
       />
-      <!-- Add more user data fields here as needed -->
       <% }); %>
 
       <img class="chapeau" src="/image-3@1x.png" alt="Centered Image" />
