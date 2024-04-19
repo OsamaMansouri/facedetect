@@ -13,17 +13,29 @@
       }
 
       .main {
-        background: #de2452;
-        width: 1920px; /* Set width */
-        height: 1080px; /* Set height */
         position: relative;
         margin: auto;
         overflow: hidden;
+        width: 1920px;
+        height: 1080px;
+      }
+
+      .main::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url(/mewbc.png);
+        filter: blur(23.1210994720459px) brightness(101.10082995891571%);
+        background-color: rgba(0, 0, 0, 0);
+        z-index: -1; /* Ensure the blurred layer is behind other content */
       }
 
       .main img {
         position: absolute;
-        top: 50%;
+        top: 54%;
         left: 50%;
         transform: translate(-50%, -50%);
         max-width: 100%;
@@ -31,18 +43,18 @@
       }
 
       .image-screenface {
-        top: 44% !important;
-        left: 57% !important;
+        top: 33% !important;
+        left: 49.5% !important;
         --z-index: 3;
         background-color: transparent;
         background-size: 100% 100%;
-        height: 105px;
+        height: 222px;
         left: calc(50% - 71px);
         object-fit: cover;
         opacity: 1;
         position: absolute;
         top: calc(50% + 47px);
-        width: 135px;
+        width: 251px;
       }
 
       .ocp {
@@ -74,7 +86,7 @@
   </head>
   <body>
     <div class="main">
-      <img src="/mask-group-4@1x.png" alt="Centered Image" />
+      <img src="/image-8-1@1x.png" alt="Centered Image" />
 
       <% userData.forEach((screenshot) => { %> <% const imagePath =
       screenshot.backgroundOutput.replace(/\\/g, '/').split('public/')[1]; %>
@@ -84,8 +96,6 @@
         alt="Centered Image"
       />
       <% }); %>
-
-      <img class="chapeau" src="/image-3@1x.png" alt="Centered Image" />
 
       <img class="ocp" src="/mask-group-2-1@1x.png" alt="Centered Image" />
     </div>

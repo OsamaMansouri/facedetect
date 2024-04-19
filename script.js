@@ -155,6 +155,13 @@ app.get("/ar", async (req, res) => {
 });
 
 // Route to handle user data based on user ID
+app.get("/user/template", async (req, res) => {
+  try {
+    res.render("formnew");
+  } catch (error) {}
+});
+
+// Route to handle user data based on user ID
 app.get("/user/:userId", async (req, res) => {
   try {
     const userId = req.params.userId;

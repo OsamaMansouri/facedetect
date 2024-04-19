@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OCP</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- Google Fonts - Montserrat -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Montserrat"
+    />
+    <script src="/js/face-api.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <style>
+      @font-face {
+        font-family: "NexaHeavy-Regular";
+        font-style: normal;
+        font-weight: 400;
+        src: url("/fonts/Nexa Heavy.otf") format("opentype");
+      }
+      #camera-container {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+      }
+      #camera-video,
+      #camera-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 1; /* Ensure video and overlay are above other content */
+      }
+      #camera-overlay {
+        z-index: 2; /* Ensure overlay is above video */
+      }
+
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      span,
+      button,
+      input,
+      a {
+        font-family: "NexaHeavy-Regular", Helvetica;
+
+        font-weight: 800 !important;
+        text-transform: uppercase;
+        color: #fff;
+        text-decoration: none;
+      }
+      /* Ensure the image covers the entire div */
+      .cover-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      /* Apply Montserrat font to body */
+      body {
+        font-family: "NexaHeavy-Regular", Helvetica;
+        background: #d81e46;
+        color: #fff;
+        font-weight: 800 !important;
+      }
+      /* Custom styling for steps container */
+      .steps-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      /* Custom styling for steps */
+      .step {
+        display: none;
+        transition: opacity 0.5s ease-in-out;
+      }
+      .step.active {
+        display: block;
+      }
+      .step-content {
+        padding: 20px;
+        border-radius: 5px;
+        background-color: #d81e46;
+      }
+
+      .btn-primary {
+        color: #fff;
+        background-color: #4bbbdf;
+        border-color: #4bbbdf;
+      }
+
+      .btn {
+        padding: 0.375rem 2.5rem;
+        border-radius: 10px;
+        box-shadow: -10px 17px 30px #000000b3;
+      }
+      .btn-container {
+        margin-top: 20px;
+      }
+      .btn-link {
+        background-color: #007bff;
+        border-color: #007bff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+      .btn-link:hover {
+        background-color: #0056b3;
+        color: #fff;
+      }
+
+      /* Add this CSS for styling the loader */
+      .loader {
+        border: 8px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 8px solid #3498db;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -25px;
+        margin-left: -25px;
+        display: none; /* Hide the loader by default */
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <% userData.forEach((screenshot) => { %>
+    <div class="container-fluid new-container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="steps-container">
+            <!-- First div with image -->
+
+            <div
+              class="col-md-6 col-sd-12"
+              style="
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              "
+            >
+              <% const imagePath = screenshot.screenshotPath.replace(/\\/g,
+              '/').split('public/')[1]; %>
+              <img
+                class="cover-image"
+                src="/<%= imagePath %>"
+                alt="Centered Image"
+                style="max-width: 700px"
+              />
+            </div>
+
+            <!-- Second div with steps -->
+            <div class="col-md-6 col-sd-12">
+              <!-- Step 1: Choose Language -->
+              <div class="step step-1 active">
+                <div class="step-content">
+                  <!-- Add more user data fields here as needed -->
+
+                  <h4 style="opacity: 0.42">ÉTAPE 4</h4>
+                  <br />
+                  <p style="font-size: 40px">
+                    Convertir Maintenant <%= screenshot.firstName %>
+                  </p>
+                  <br />
+
+                  <br />
+                  <!-- Form to trigger conversion -->
+                  <form
+                    id="convertForm"
+                    action="/user/convert/<%= screenshot.userId %>"
+                    method="GET"
+                  >
+                    <div class="btn-container">
+                      <button id="convertButton" class="btn btn-primary">
+                        CONVERTIR
+                      </button>
+                      <br /><br />
+                      <p>
+                        Merci de noter que la conversion prends au moin 1 min
+                      </p>
+                    </div>
+                  </form>
+
+                  <!-- Loader -->
+                  <div id="loader" class="loader" style="display: none"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% }); %>
+
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+      // Function to show loader when conversion starts
+      function showLoader() {
+        var loader = document.getElementById("loader");
+        loader.style.display = "block";
+      }
+
+      // Attach click event listener to the button
+      document
+        .getElementById("convertButton")
+        .addEventListener("click", showLoader);
+
+      // Function to hide loader when conversion completes
+      function hideLoader() {
+        var loader = document.getElementById("loader");
+        loader.style.display = "none";
+      }
+    </script>
+  </body>
+</html>

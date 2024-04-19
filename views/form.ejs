@@ -3,12 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>OCP</title>
-    <!-- Bootstrap CSS -->
+    <title>Responsive Website</title>
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
+
     <!-- Google Fonts - Montserrat -->
     <link
       rel="stylesheet"
@@ -34,6 +34,7 @@
       span,
       button,
       input,
+      div,
       a {
         font-family: "NexaHeavy-Regular", Helvetica;
 
@@ -47,6 +48,10 @@
         color: #de2551;
       }
 
+      label {
+        font-size: 24px;
+      }
+
       .btn-primary {
         color: #fff;
         background-color: #4bbbdf;
@@ -57,21 +62,99 @@
         padding: 0.375rem 2.5rem;
         border-radius: 10px;
         box-shadow: -10px 17px 30px #000000b3;
+        font-size: 1.5rem;
       }
-      /* Ensure the image covers the entire div */
-      .cover-image {
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+
+      .main {
+        position: relative;
+        margin: auto;
+        overflow: hidden;
+        width: 1920px;
+        height: 1080px;
+      }
+
+      .main::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
-        height: auto;
+        height: 100%;
+        background-image: url(/mewbc.png);
+        filter: blur(23.1210994720459px) brightness(101.10082995891571%);
+        background-color: rgba(0, 0, 0, 0);
+        z-index: -1; /* Ensure the blurred layer is behind other content */
+      }
+
+      .main img {
+        position: absolute;
+        top: 54%;
+        left: 32%;
+        transform: translate(-50%, -50%);
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      .section {
+        width: 687px;
+        z-index: 10;
+        height: 515px;
+        position: absolute;
+        top: 47%;
+        left: 74%;
+        transform: translate(-50%, -50%);
+        max-width: 100%;
+        max-height: 100%;
+        opacity: 1;
+      }
+
+      .image-screenface {
+        top: 44% !important;
+        left: 57% !important;
+        --z-index: 3;
+        background-color: transparent;
+        background-size: 100% 100%;
+        height: 105px;
+        left: calc(50% - 71px);
         object-fit: cover;
+        opacity: 1;
+        position: absolute;
+        top: calc(50% + 47px);
+        width: 135px;
       }
-      /* Apply Montserrat font to body */
-      body {
-        font-family: "NexaHeavy-Regular", Helvetica;
-        background: #de2551;
-        color: #fff;
-        font-weight: 800 !important;
+
+      .ocp {
+        --z-index: 1;
+        background-color: transparent;
+        background-size: 100% 100%;
+        height: 149px;
+        left: 1800px !important;
+        object-fit: cover;
+        opacity: 1;
+        position: absolute;
+        top: 970px !important;
+        width: 129px;
       }
-      /* Custom styling for steps container */
+
+      .chapeau {
+        --z-index: 4;
+        background-color: transparent;
+        background-size: 100% 100%;
+        height: 94px;
+        left: 1095px !important;
+        object-fit: cover;
+        opacity: 1;
+        position: absolute;
+        top: 384px !important;
+        width: 146px;
+      }
+
       .steps-container {
         display: flex;
         justify-content: center;
@@ -89,7 +172,6 @@
       .step-content {
         padding: 20px;
         border-radius: 5px;
-        background-color: #de2551;
       }
       .btn-container {
         margin-top: 20px;
@@ -131,217 +213,171 @@
     </style>
   </head>
   <body>
-    <form id="userForm" action="/submitForm" method="post">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="steps-container">
-              <!-- First div with image -->
-              <div class="col-md-6 col-sd-12">
-                <img src="/bc.png" class="cover-image" alt="Cover Image" />
+    <div class="main">
+      <img class="blur" src="/image-8-1@1x.png" alt="Centered Image" />
+      <form id="userForm" action="/submitForm" method="post">
+        <div class="section">
+          <div class="step step-1 active">
+            <div class="step-content">
+              <p style="font-size: 40px">CHOISISSEZ VOTRE LANGUE</p>
+              <br />
+              <div class="btn-container">
+                <div
+                  class="btn btn-primary next-step"
+                  style="background-color: #0f7cc0; border: #0f7cc0"
+                >
+                  FRANÇAIS
+                </div>
+                <!--<a
+                  href="/ar"
+                  class="btn btn-primary next-step"
+                  style="background-color: #0f7cc0; border: #0f7cc0"
+                >
+                  ARABE
+                </a>-->
               </div>
-              <!-- Second div with steps -->
-              <div class="col-md-6 col-sd-12">
-                <!-- Step 1: Choose Language -->
-                <!--<div class="step step-1 active">
-                  <div class="step-content">
-                    <h4>Please select your language</h4>
-                    <br />
-                    <div class="form-group">
-                      <div class="form-check form-check-inline">
-                        <input
-                          class="form-check-input"
-                          type="radio"
-                          name="language"
-                          id="francaisRadio"
-                          value="francais"
-                        />
-                        <label class="form-check-label" for="francaisRadio"
-                          >Français</label
-                        >
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input
-                          class="form-check-input"
-                          type="radio"
-                          name="language"
-                          id="anglaisRadio"
-                          value="anglais"
-                        />
-                        <label class="form-check-label" for="anglaisRadio"
-                          >Anglais</label
-                        >
-                      </div>
-                    </div>
-                    <div class="btn-container">
-                      <button class="btn btn-primary next-step">Next</button>
-                    </div>
-                  </div>
-                </div> -->
+            </div>
+          </div>
 
-                <div class="step step-1 active">
-                  <div class="step-content">
-                    <p style="font-size: 40px">CHOISISSEZ VOTRE LANGUE</p>
-                    <br />
-                    <div class="btn-container">
-                      <div
-                        class="btn btn-primary next-step"
-                        style="background-color: #0f7cc0; border: #0f7cc0"
-                      >
-                        FRANÇAIS
-                      </div>
-                      <a
-                        href="/ar"
-                        class="btn btn-primary next-step"
-                        style="background-color: #0f7cc0; border: #0f7cc0"
-                      >
-                        ARABE
-                      </a>
-                    </div>
-                  </div>
+          <!-- Step 2: Fill Form -->
+          <div class="step step-2">
+            <div class="step-content">
+              <h4 style="opacity: 0.42">ÉTAPE 1/3</h4>
+              <br />
+              <p style="font-size: 40px">
+                ÉCRIVEZ VOTRE NOM PRÉNOM ET CLIQUEZ SUR CONTINUER
+              </p>
+              <br />
+              <!-- Your form content here -->
+              <div class="form-group">
+                <input
+                  style="
+                    background-color: #ffffff;
+                    border-radius: 17px;
+                    box-shadow: inset 0px 3px 6px #00000069;
+                    height: 60px;
+                    opacity: 1;
+                    width: 75%;
+                  "
+                  type="text"
+                  class="form-control"
+                  id="firstName"
+                  name="firstName"
+                  placeholder="NOM"
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  style="
+                    background-color: #ffffff;
+                    border-radius: 17px;
+                    box-shadow: inset 0px 3px 6px #00000069;
+                    height: 60px;
+                    opacity: 1;
+                    width: 75%;
+                  "
+                  class="form-control"
+                  id="lastName"
+                  name="lastName"
+                  placeholder="PRENOM"
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  style="
+                    background-color: #ffffff;
+                    border-radius: 17px;
+                    box-shadow: inset 0px 3px 6px #00000069;
+                    height: 60px;
+                    opacity: 1;
+                    width: 75%;
+                  "
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  name="email"
+                  placeholder="EMAIL"
+                />
+              </div>
+
+              <div class="form-group">
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="sexe"
+                    id="maleRadio"
+                    value="male"
+                  />
+                  <label class="form-check-label" for="maleRadio">GARSON</label>
                 </div>
-
-                <!-- Step 2: Fill Form -->
-                <div class="step step-2">
-                  <div class="step-content">
-                    <h4 style="opacity: 0.42">ÉTAPE 1/3</h4>
-                    <br />
-                    <p style="font-size: 40px">
-                      ÉCRIVEZ VOTRE NOM PRÉNOM ET CLIQUEZ SUR CONTINUER
-                    </p>
-                    <br />
-                    <!-- Your form content here -->
-                    <div class="form-group">
-                      <input
-                        style="
-                          background-color: #ffffff;
-                          border-radius: 17px;
-                          box-shadow: inset 0px 3px 6px #00000069;
-                          height: 49px;
-                          opacity: 1;
-                          width: 70%;
-                        "
-                        type="text"
-                        class="form-control"
-                        id="firstName"
-                        name="firstName"
-                        placeholder="NOM"
-                      />
-                    </div>
-                    <div class="form-group">
-                      <input
-                        style="
-                          background-color: #ffffff;
-                          border-radius: 17px;
-                          box-shadow: inset 0px 3px 6px #00000069;
-                          height: 49px;
-                          opacity: 1;
-                          width: 70%;
-                        "
-                        class="form-control"
-                        id="lastName"
-                        name="lastName"
-                        placeholder="PRENOM"
-                      />
-                    </div>
-                    <div class="form-group">
-                      <input
-                        style="
-                          background-color: #ffffff;
-                          border-radius: 17px;
-                          box-shadow: inset 0px 3px 6px #00000069;
-                          height: 49px;
-                          opacity: 1;
-                          width: 70%;
-                        "
-                        type="email"
-                        class="form-control"
-                        id="email"
-                        name="email"
-                        placeholder="EMAIL"
-                      />
-                    </div>
-                    <!--
-                    <div class="form-group">
-                      <div class="form-check form-check-inline">
-                        <input
-                          class="form-check-input"
-                          type="radio"
-                          name="sexe"
-                          id="maleRadio"
-                          value="male"
-                        />
-                        <label class="form-check-label" for="maleRadio"
-                          >GARSON</label
-                        >
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input
-                          class="form-check-input"
-                          type="radio"
-                          name="sexe"
-                          id="femaleRadio"
-                          value="female"
-                        />
-                        <label class="form-check-label" for="femaleRadio"
-                          >FILLE</label
-                        >
-                      </div>
-                    </div>-->
-
-                    <div class="btn-container">
-                      <div class="btn btn-secondary prev-step">RETOUR</div>
-                      <div class="btn btn-primary next-step">CONTINUER</div>
-                    </div>
-                  </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="sexe"
+                    id="femaleRadio"
+                    value="female"
+                  />
+                  <label class="form-check-label" for="femaleRadio"
+                    >FILLE</label
+                  >
                 </div>
+              </div>
 
-                <!-- Step 3: Submit -->
-                <div class="step step-3">
-                  <div class="step-content">
-                    <h4 style="opacity: 0.42">ÉTAPE 2/3</h4>
-                    <br />
-                    <p style="font-size: 40px">
-                      PRENDRE UNE PHOTO POUR REMPLACER LE VISAGE
-                    </p>
-                    <div class="btn-container">
-                      <div class="btn btn-secondary prev-step">RETOUR</div>
-                      <button class="btn btn-primary" id="submitFormButton">
-                        PRENDRE UNE PHOTO
-                      </button>
-                    </div>
-                  </div>
-                </div>
+              <div class="btn-container">
+                <div class="btn btn-secondary prev-step">RETOUR</div>
+                <div class="btn btn-primary next-step">CONTINUER</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3: Submit -->
+          <div class="step step-3">
+            <div class="step-content">
+              <h4 style="opacity: 0.42">ÉTAPE 2/3</h4>
+              <br />
+              <p style="font-size: 40px">
+                PRENDRE UNE PHOTO POUR REMPLACER LE VISAGE
+              </p>
+              <div class="btn-container">
+                <div class="btn btn-secondary prev-step">RETOUR</div>
+                <button class="btn btn-primary" id="submitFormButton">
+                  PRENDRE UNE PHOTO
+                </button>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </form>
-    <!-- Bootstrap JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-      $(document).ready(function () {
-        $(".step-1").addClass("active");
+      </form>
 
-        // When 'Next' button is clicked, show next step
-        $(".next-step").click(function () {
-          var currentStep = $(this).closest(".step");
-          currentStep.removeClass("active").fadeOut(500, function () {
-            currentStep.next(".step").fadeIn(500).addClass("active");
+      <img class="ocp" src="/mask-group-2-1@1x.png" alt="Centered Image" />
+
+      <!-- Bootstrap JS -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      <script>
+        $(document).ready(function () {
+          $(".step-1").addClass("active");
+
+          // When 'Next' button is clicked, show next step
+          $(".next-step").click(function () {
+            var currentStep = $(this).closest(".step");
+            currentStep.removeClass("active").fadeOut(500, function () {
+              currentStep.next(".step").fadeIn(500).addClass("active");
+            });
+          });
+
+          // When 'Back' button is clicked, show previous step
+          $(".prev-step").click(function () {
+            var currentStep = $(this).closest(".step");
+            currentStep.removeClass("active").fadeOut(500, function () {
+              currentStep.prev(".step").fadeIn(500).addClass("active");
+            });
           });
         });
-
-        // When 'Back' button is clicked, show previous step
-        $(".prev-step").click(function () {
-          var currentStep = $(this).closest(".step");
-          currentStep.removeClass("active").fadeOut(500, function () {
-            currentStep.prev(".step").fadeIn(500).addClass("active");
-          });
-        });
-      });
-    </script>
+      </script>
+    </div>
   </body>
 </html>
