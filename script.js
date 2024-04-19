@@ -294,7 +294,7 @@ app.post("/submitForm", async (req, res) => {
       firstName: firstName,
       lastName: lastName,
       email: email,
-      sexe: sexe,
+      sexe: "none",
       screenshotPath: "",
     });
 
