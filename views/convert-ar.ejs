@@ -3,8 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LES DOMAINES AGRICOLES</title>
-
+    <title>BD LES DOMAINES</title>
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -21,37 +20,10 @@
 
     <style>
       @font-face {
-        font-family: "NexaHeavy-Regular";
+        font-family: "Janna LT Bold";
         font-style: normal;
         font-weight: 400;
-        src: url("/fonts/Nexa Heavy.otf") format("opentype");
-      }
-      #camera-container {
-        position: relative;
-        width: 100%;
-        height: 100vh;
-        overflow: hidden;
-      }
-      #camera-video {
-        position: absolute;
-        top: auto;
-        left: 0;
-        width: 100%;
-        height: 1080px;
-        object-fit: cover;
-        z-index: 1;
-      }
-      #camera-overlay {
-        position: absolute;
-        top: 543px;
-        left: 483px;
-        width: 100%;
-        height: 1080px;
-        object-fit: cover;
-        z-index: 1; /* Ensure video and overlay are above other content */
-      }
-      #camera-overlay {
-        z-index: 2; /* Ensure overlay is above video */
+        src: url("/fonts/Janna LT Bold.ttf") format("opentype");
       }
 
       h3,
@@ -64,7 +36,7 @@
       input,
       div,
       a {
-        font-family: "NexaHeavy-Regular", Helvetica;
+        font-family: "Janna LT Bold";
 
         font-weight: 800 !important;
         text-transform: uppercase;
@@ -76,6 +48,10 @@
         color: #de2551;
       }
 
+      label {
+        font-size: 24px;
+      }
+
       .btn-primary {
         color: #fff;
         background-color: #019a4a;
@@ -83,7 +59,7 @@
       }
 
       .btn {
-        padding: 0.375rem 2.5rem;
+        padding: 0.375rem 3.5rem;
         border-radius: 10px;
         box-shadow: -10px 17px 30px #000000b3;
         font-size: 1.5rem;
@@ -131,7 +107,7 @@
         height: 515px;
         position: absolute;
         top: 55%;
-        left: 74%;
+        left: 70%;
         transform: translate(-50%, -50%);
         max-width: 100%;
         max-height: 100%;
@@ -202,13 +178,14 @@
       }
       .btn-link {
         background-color: #019a4a;
-        border-color: #019a4a;
+        border: #019a4a;
         padding: 10px 20px;
         border-radius: 5px;
         transition: background-color 0.3s ease;
       }
       .btn-link:hover {
         background-color: #019a4a;
+        border: #019a4a;
         color: #fff;
       }
       /* Add this CSS for styling the loader */
@@ -220,7 +197,7 @@
         height: 50px;
         animation: spin 1s linear infinite;
         position: absolute;
-        top: 50%;
+        top: 65%;
         left: 50%;
         margin-top: -25px;
         margin-left: -25px;
@@ -237,83 +214,74 @@
     </style>
   </head>
   <body>
-    <div class="main">
-      <div id="camera-container" class="col-md-6 col-sd-12">
-        <video id="camera-video" autoplay></video>
-        <img
-          id="camera-overlay"
-          src="/sc.png"
-          class="cover-image"
-          alt="Cover Image"
-        />
-        <!-- <canvas id="overlay" width="640" height="480"></canvas>-->
-      </div>
+    <div class="main" style="text-align: right">
+      <img class="blur" src="/image-8-1@1x.png" alt="Centered Image" />
 
       <div class="section">
         <div class="step step-1 active">
           <div class="step-content">
-            <% if (error) { %>
-            <div class="alert alert-danger" role="alert"><%= error %></div>
-
-            <% } %> <% userData.forEach((screenshot) => { %>
             <!-- Add more user data fields here as needed -->
 
-            <h4 style="opacity: 0.42">ÉTAPE 3/3</h4>
+            <h4 style="opacity: 0.42">الخطوة الاخيرة</h4>
             <br />
-            <p style="font-size: 40px">
-              VEUILLEZ CENTRER VOTRE VISAGE DANS LE CERCLE
-            </p>
+            <p style="font-size: 40px">تحويل الصورة الآن</p>
             <br />
 
             <br />
-            <div class="btn-container">
-              <button
-                class="btn btn-primary"
-                id="takeScreenshotButton"
-                disabled
-                onclick="takeScreenshot('<%= screenshot.userId %>')"
-              >
-                VALIDER
-              </button>
+            <!-- Form to trigger conversion -->
+            <% userData.forEach((screenshot) => { %>
+            <form
+              id="convertForm"
+              action="/user/convertar/<%= screenshot.userId %>"
+              method="GET"
+            >
+              <div class="btn-container">
+                <a
+                  href="/screenar/<%= screenshot.userId %>"
+                  class="btn btn-secondary"
+                  >تغيير الصورة</a
+                >
+                <button id="convertButton" class="btn btn-primary">أكمل</button>
 
-              <% }); %>
+                <br /><br />
+                <p>يرجى ملاحظة أن التحويل يستغرق حوالي دقيقة واحدة</p>
+              </div>
+            </form>
+            <% }); %>
 
-              <br /><br />
-            </div>
-            <div id="loader" class="loader"></div>
+            <!-- Loader -->
+            <div id="loader" class="loader" style="display: none"></div>
           </div>
         </div>
       </div>
 
-      <img class="ocp" src="/logo.png" alt="Centered Image" />-->
+      <!-- Loader -->
+      <div id="loader" class="loader" style="display: none"></div>
+
+      <img class="ocp" src="/logo.png" alt="Centered Image" />
     </div>
 
     <!-- Bootstrap JS -->
-    <script src="/js/client.js" defer></script>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-      $(document).ready(function () {
-        $(".step-1").addClass("active");
+      // Function to show loader when conversion starts
+      function showLoader() {
+        var loader = document.getElementById("loader");
+        loader.style.display = "block";
+      }
 
-        // When 'Next' button is clicked, show next step
-        $(".next-step").click(function () {
-          var currentStep = $(this).closest(".step");
-          currentStep.removeClass("active").fadeOut(500, function () {
-            currentStep.next(".step").fadeIn(500).addClass("active");
-          });
-        });
+      // Attach click event listener to the button
+      document
+        .getElementById("convertButton")
+        .addEventListener("click", showLoader);
 
-        // When 'Back' button is clicked, show previous step
-        $(".prev-step").click(function () {
-          var currentStep = $(this).closest(".step");
-          currentStep.removeClass("active").fadeOut(500, function () {
-            currentStep.prev(".step").fadeIn(500).addClass("active");
-          });
-        });
-      });
+      // Function to hide loader when conversion completes
+      function hideLoader() {
+        var loader = document.getElementById("loader");
+        loader.style.display = "none";
+      }
     </script>
   </body>
 </html>

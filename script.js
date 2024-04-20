@@ -130,6 +130,53 @@ io.on("connection", (socket) => {
       console.error("Error capturing screenshot:", error);
     }
   });
+
+  // Listen for takeScreenshot event
+  socket.on("takeScreenshotAr", async (screenshotData, userId) => {
+    try {
+      //console.log("Received screenshot data:", screenshotData);
+
+      const screenshotName = `screenshot_${Date.now()}.jpg`;
+      const screenshotPath = path.join(
+        __dirname,
+        "public",
+        "screenshots",
+        screenshotName
+      );
+      const base64Data = screenshotData.replace(
+        /^data:image\/jpeg;base64,/,
+        ""
+      );
+      require("fs").writeFileSync(screenshotPath, base64Data, "base64");
+
+      // Get the last inserted user ID
+      const lastUserId = await getLastInsertedUserId();
+
+      // If lastUserId is null, log an error and return
+      if (lastUserId === null) {
+        console.error("No existing user ID found in the database.");
+        return;
+      }
+
+      // Find the user with the last user ID and update the screenshotPath
+      const userToUpdate = await Screenshot.findOneAndUpdate(
+        { userId: userId }, // Use the provided userId here
+        { screenshotPath: screenshotPath },
+        { new: true }
+      );
+
+      if (!userToUpdate) {
+        console.error(`No user found with userID: ${userId}`);
+        return;
+      }
+
+      io.emit("screenshot", screenshotPath);
+      console.log(`Screenshot path updated for user with ID: ${userId}`);
+      io.emit("redirect", `/user/testconvar/${userId}`);
+    } catch (error) {
+      console.error("Error capturing screenshot:", error);
+    }
+  });
 });
 
 // Route to handle user data based on user ID
@@ -146,18 +193,31 @@ io.on("connection", (socket) => {
 });*/
 
 // Route to handle user data based on user ID
+
 app.get("/", async (req, res) => {
+  res.render("langue");
+});
+
+app.get("/startfr", async (req, res) => {
+  res.render("start");
+});
+
+app.get("/startar", async (req, res) => {
+  res.render("start-ar");
+});
+
+app.get("/formfr", async (req, res) => {
   res.render("form");
 });
 
-app.get("/ar", async (req, res) => {
+app.get("/formar", async (req, res) => {
   res.render("form-ar");
 });
 
 // Route to handle user data based on user ID
-app.get("/user/template", async (req, res) => {
+app.get("/template", async (req, res) => {
   try {
-    res.render("formnew");
+    res.render("start");
   } catch (error) {}
 });
 
@@ -170,6 +230,20 @@ app.get("/user/:userId", async (req, res) => {
 
     // Render user.ejs template with user data
     res.render("details", { userData });
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    res.status(500).send("Internal server error");
+  }
+});
+
+app.get("/userar/:userId", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    // Find the user data based on the provided user ID
+    const userData = await Screenshot.find({ userId: userId });
+
+    // Render user.ejs template with user data
+    res.render("details-ar", { userData });
   } catch (error) {
     console.error("Error fetching user data:", error);
     res.status(500).send("Internal server error");
@@ -280,6 +354,102 @@ app.get("/user/convert/:userId", async (req, res) => {
   }
 });
 
+app.get("/user/convertar/:userId", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const screenshot = await Screenshot.findOne({ userId });
+    if (!screenshot) {
+      return res.status(404).send("Screenshot not found for the user ID.");
+    }
+    fs.readFile(
+      screenshot.screenshotPath,
+      { encoding: "base64" },
+      (err, imageData) => {
+        if (err) {
+          console.error("Error reading image file:", err);
+          return res.status(500).send("Error reading image file.");
+        }
+        // Run the replicate API using the captured image
+        replicate
+          .run(
+            "fofr/become-image:8d0b076a2aff3904dfcec3253c778e0310a68f78483c4699c7fd800f3051d2b3",
+            {
+              input: {
+                image: `data:image/jpeg;base64,${imageData}`, // Provide the image data as base64
+                prompt: "a cartoon caracter",
+                image_to_become:
+                  "https://static.vecteezy.com/ti/vecteur-libre/p1/17678787-architecte-technicien-et-constructeurs-et-ingenieurs-et-mecaniciens-et-travailleurs-de-la-construction-travail-d-equipe-personnage-de-dessin-anime-d-illustrationle-ingenieur-avec-casque-de-securite-blanc-sur-chantier-vectoriel.jpg",
+                negative_prompt: "",
+                prompt_strength: 1,
+                number_of_images: 1,
+                denoising_strength: 1,
+                instant_id_strength: 1,
+                image_to_become_noise: 0.3,
+                control_depth_strength: 0.8,
+                image_to_become_strength: 0.75,
+              },
+            }
+          )
+          .then(async (output) => {
+            try {
+              // Extract the URL of the output image from the replicate output
+              const cartoonImageURL = output[0]; // The URL is directly accessible in the first element of the array
+
+              // Now, remove the background from the image
+              const backgroundOutputURL = await replicate.run(
+                "smoretalk/rembg-enhance:c57bc7626c4b5eda6531ffb84657f5672932d0fad49120b94383ec93f7ad7ac6",
+                {
+                  input: {
+                    image: cartoonImageURL,
+                  },
+                }
+              );
+
+              console.log(
+                "Background removal output URL:",
+                backgroundOutputURL
+              );
+
+              // Download the background output image
+              const response = await axios.get(backgroundOutputURL, {
+                responseType: "arraybuffer",
+              });
+              const backgroundPath = path.join(
+                __dirname,
+                "public",
+                "backgroundOutputs",
+                `background_${Date.now()}.jpg`
+              );
+              fs.writeFileSync(backgroundPath, response.data);
+
+              // Update the screenshot document with the local file path
+              screenshot.backgroundOutput = backgroundPath;
+              await screenshot.save();
+
+              // Continue with further processing or handling of the generated output
+              //res.json({ cartoonImageURL, backgroundPath });
+              res.redirect(`/userar/${userId}`);
+            } catch (error) {
+              console.error("Error processing background output:", error);
+              res.status(500).send("Error processing background output.");
+            }
+          })
+          .catch((error) => {
+            console.error("Error converting image to cartoon:", error);
+            const errorMessage =
+              "NSFW content detected in input images. Please try taking another photo.";
+            res.redirect(
+              `/screenar/${userId}?error=${encodeURIComponent(errorMessage)}`
+            );
+          });
+      }
+    );
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("Internal server error.");
+  }
+});
+
 app.post("/submitForm", async (req, res) => {
   try {
     // Extract form data from the request body
@@ -310,6 +480,36 @@ app.post("/submitForm", async (req, res) => {
   }
 });
 
+app.post("/submitFormAr", async (req, res) => {
+  try {
+    // Extract form data from the request body
+    const { firstName, lastName, email, sexe } = req.body;
+
+    // Get the next unique user ID
+    const userId = await getNextUserId();
+
+    // Create a new instance of the Screenshot model with the form data
+    const screenshot = new Screenshot({
+      userId: userId,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      sexe: "none",
+      screenshotPath: "",
+    });
+
+    // Save the screenshot data to the database
+    await screenshot.save();
+
+    // Redirect the user to the /userId/:userId route
+    res.redirect(`/screenar/${userId}`);
+  } catch (error) {
+    console.error("Error submitting form:", error);
+    // Send an error response if there was a problem with form submission
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 app.get("/screen/:userId", async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -325,6 +525,21 @@ app.get("/screen/:userId", async (req, res) => {
   }
 });
 
+app.get("/screenar/:userId", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    // Find the user data based on the provided user ID
+    const userData = await Screenshot.find({ userId: userId });
+    const error = req.query.error || null;
+
+    // Render user.ejs template with user data
+    res.render("screen-ar", { userData, error });
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    res.status(500).send("Internal server error");
+  }
+});
+
 app.get("/user/testconv/:userId", async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -333,6 +548,20 @@ app.get("/user/testconv/:userId", async (req, res) => {
 
     // Render user.ejs template with user data
     res.render("convert", { userData });
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    res.status(500).send("Internal server error");
+  }
+});
+
+app.get("/user/testconvar/:userId", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    // Find the user data based on the provided user ID
+    const userData = await Screenshot.find({ userId: userId });
+
+    // Render user.ejs template with user data
+    res.render("convert-ar", { userData });
   } catch (error) {
     console.error("Error fetching user data:", error);
     res.status(500).send("Internal server error");

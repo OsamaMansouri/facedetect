@@ -78,8 +78,8 @@
 
       .btn-primary {
         color: #fff;
-        background-color: #4bbbdf;
-        border-color: #4bbbdf;
+        background-color: #019a4a;
+        border-color: #019a4a;
       }
 
       .btn {
@@ -118,8 +118,8 @@
 
       .main img {
         position: absolute;
-        top: 50%;
-        left: 59%;
+        top: 54%;
+        left: 32%;
         transform: translate(-50%, -50%);
         max-width: 100%;
         max-height: 100%;
@@ -157,13 +157,13 @@
         --z-index: 1;
         background-color: transparent;
         background-size: 100% 100%;
-        height: 149px;
-        left: 1800px !important;
+        height: 150px;
+        left: 1750px !important;
         object-fit: cover;
         opacity: 1;
         position: absolute;
-        top: 970px !important;
-        width: 129px;
+        top: 984px !important;
+        width: 282px;
       }
 
       .chapeau {
@@ -201,26 +201,26 @@
         margin-top: 20px;
       }
       .btn-link {
-        background-color: #4bbbdf;
+        background-color: #019a4a;
         border-color: #4bbbdf;
         padding: 10px 20px;
         border-radius: 5px;
         transition: background-color 0.3s ease;
       }
       .btn-link:hover {
-        background-color: #4bbbdf;
+        background-color: #019a4a;
         color: #fff;
       }
       /* Add this CSS for styling the loader */
       .loader {
         border: 8px solid #f3f3f3;
         border-radius: 50%;
-        border-top: 8px solid #4bbbdf;
+        border-top: 8px solid #019a4a;
         width: 50px;
         height: 50px;
         animation: spin 1s linear infinite;
         position: absolute;
-        top: 50%;
+        top: 65%;
         left: 50%;
         margin-top: -25px;
         margin-left: -25px;
@@ -239,18 +239,7 @@
   <body>
     <% userData.forEach((screenshot) => { %>
     <div class="main">
-      <div id="camera-container" class="col-md-6 col-sd-12">
-        <% const imagePath = screenshot.screenshotPath.replace(/\\/g,
-        '/').split('public/')[1]; %>
-        <img
-          class="cover-image"
-          src="/<%= imagePath %>"
-          alt="Centered Image"
-          style="width: 558px"
-        />
-
-        <!-- <canvas id="overlay" width="640" height="480"></canvas>-->
-      </div>
+      <img class="blur" src="/image-8-1@1x.png" alt="Centered Image" />
 
       <div class="section">
         <div class="step step-1 active">
@@ -259,9 +248,7 @@
 
             <h4 style="opacity: 0.42">ÉTAPE 4</h4>
             <br />
-            <p style="font-size: 40px">
-              Convertir Maintenant <%= screenshot.firstName %>
-            </p>
+            <p style="font-size: 40px">Convertir Maintenant</p>
             <br />
 
             <br />
@@ -292,31 +279,31 @@
         </div>
       </div>
 
-      <!--<img class="ocp" src="/mask-group-2-1@1x.png" alt="Centered Image" />-->
-
-      <!-- Bootstrap JS -->
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-      <script>
-        // Function to show loader when conversion starts
-        function showLoader() {
-          var loader = document.getElementById("loader");
-          loader.style.display = "block";
-        }
-
-        // Attach click event listener to the button
-        document
-          .getElementById("convertButton")
-          .addEventListener("click", showLoader);
-
-        // Function to hide loader when conversion completes
-        function hideLoader() {
-          var loader = document.getElementById("loader");
-          loader.style.display = "none";
-        }
-      </script>
+      <img class="ocp" src="/logo.png" alt="Centered Image" />
     </div>
     <% }); %>
+
+    <!-- Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      // Function to show loader when conversion starts
+      function showLoader() {
+        var loader = document.getElementById("loader");
+        loader.style.display = "block";
+      }
+
+      // Attach click event listener to the button
+      document
+        .getElementById("convertButton")
+        .addEventListener("click", showLoader);
+
+      // Function to hide loader when conversion completes
+      function hideLoader() {
+        var loader = document.getElementById("loader");
+        loader.style.display = "none";
+      }
+    </script>
   </body>
 </html>
