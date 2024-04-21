@@ -243,7 +243,7 @@ app.get("/user/bd/:userId/1", async (req, res) => {
     const userData = await Screenshot.find({ userId: userId });
 
     // Render user.ejs template with user data
-    res.render("bd1", { userData });
+    res.render("fr/bd1", { userData });
   } catch (error) {
     console.error("Error fetching user data:", error);
     res.status(500).send("Internal server error");
@@ -257,7 +257,7 @@ app.get("/user/bd/:userId/2", async (req, res) => {
     const userData = await Screenshot.find({ userId: userId });
 
     // Render user.ejs template with user data
-    res.render("bd2", { userData });
+    res.render("fr/bd2", { userData });
   } catch (error) {
     console.error("Error fetching user data:", error);
     res.status(500).send("Internal server error");
@@ -271,7 +271,7 @@ app.get("/user/bd/:userId/3", async (req, res) => {
     const userData = await Screenshot.find({ userId: userId });
 
     // Render user.ejs template with user data
-    res.render("bd3", { userData });
+    res.render("fr/bd3", { userData });
   } catch (error) {
     console.error("Error fetching user data:", error);
     res.status(500).send("Internal server error");
@@ -285,7 +285,7 @@ app.get("/user/bd/:userId/4", async (req, res) => {
     const userData = await Screenshot.find({ userId: userId });
 
     // Render user.ejs template with user data
-    res.render("bd4", { userData });
+    res.render("fr/bd4", { userData });
   } catch (error) {
     console.error("Error fetching user data:", error);
     res.status(500).send("Internal server error");
@@ -299,7 +299,77 @@ app.get("/user/bd/:userId/5", async (req, res) => {
     const userData = await Screenshot.find({ userId: userId });
 
     // Render user.ejs template with user data
-    res.render("bd5", { userData });
+    res.render("fr/bd5", { userData });
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    res.status(500).send("Internal server error");
+  }
+});
+
+app.get("/user/bdar/:userId/1", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    // Find the user data based on the provided user ID
+    const userData = await Screenshot.find({ userId: userId });
+
+    // Render user.ejs template with user data
+    res.render("ar/bd1", { userData });
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    res.status(500).send("Internal server error");
+  }
+});
+
+app.get("/user/bdar/:userId/2", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    // Find the user data based on the provided user ID
+    const userData = await Screenshot.find({ userId: userId });
+
+    // Render user.ejs template with user data
+    res.render("ar/bd2", { userData });
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    res.status(500).send("Internal server error");
+  }
+});
+
+app.get("/user/bdar/:userId/3", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    // Find the user data based on the provided user ID
+    const userData = await Screenshot.find({ userId: userId });
+
+    // Render user.ejs template with user data
+    res.render("ar/bd3", { userData });
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    res.status(500).send("Internal server error");
+  }
+});
+
+app.get("/user/bdar/:userId/4", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    // Find the user data based on the provided user ID
+    const userData = await Screenshot.find({ userId: userId });
+
+    // Render user.ejs template with user data
+    res.render("ar/bd4", { userData });
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    res.status(500).send("Internal server error");
+  }
+});
+
+app.get("/user/bdar/:userId/5", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    // Find the user data based on the provided user ID
+    const userData = await Screenshot.find({ userId: userId });
+
+    // Render user.ejs template with user data
+    res.render("ar/bd5", { userData });
   } catch (error) {
     console.error("Error fetching user data:", error);
     res.status(500).send("Internal server error");

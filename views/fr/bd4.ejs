@@ -55,29 +55,38 @@
 
       .container .image-6 {
         height: 128px;
-        left: 180px;
+        left: 1219px;
         object-fit: cover;
         position: absolute;
-        top: 879px;
+        top: 524px;
         width: 138px;
       }
 
       .container .image-19 {
-        height: 128px;
-        left: 917px;
+        height: 134px;
+        left: 255px;
         object-fit: cover;
         position: absolute;
-        top: 567px;
-        width: 118px;
+        top: 340px;
+        width: 129px;
+      }
+
+      .container .image-21 {
+        height: 49px;
+        left: 196px;
+        object-fit: cover;
+        position: absolute;
+        top: 91px;
+        width: 48px;
       }
 
       .container .image-20 {
-        height: 39px;
-        left: 957px;
+        height: 58px;
+        left: 939px;
         object-fit: cover;
         position: absolute;
-        top: 128px;
-        width: 40px;
+        top: 112px;
+        width: 58px;
       }
     </style>
   </head>
@@ -88,13 +97,13 @@
       screenshot.backgroundOutput.replace(/\\/g, '/').split('public/')[1]; %>
 
       <div class="container screen">
-        <a href="/user/bd/<%= screenshot.userId %>/4">
+        <a href="/user/bd/<%= screenshot.userId %>/3">
           <img class="path" src="/path-5-1@1x.png" alt="Path 5" />
         </a>
         <div class="overlap-group1">
           <div class="image-container">
-            <img class="image-9" src="/image-17@1x.png" alt="" />
-            <img class="image-10" src="/image-18@1x.png" alt="" />
+            <img class="image-9" src="/image-15@1x.png" alt="" />
+            <img class="image-10" src="/image-16@1x.png" alt="" />
           </div>
           <img
             class="image-6"
@@ -121,7 +130,63 @@
               opacity: 0.8;
             "
           />
+
+          <img
+            class="image-21"
+            src="/<%= imagePath %>"
+            alt=""
+            style="
+              -webkit-border-radius: 50%;
+              -ms-border-radius: 50%;
+              -o-border-radius: 50%;
+              border-radius: 58%;
+              opacity: 0.8;
+            "
+          />
+
+          <img
+            class="image-20"
+            src="/<%= imagePath %>"
+            alt=""
+            style="
+              -webkit-border-radius: 50%;
+              -ms-border-radius: 50%;
+              -o-border-radius: 50%;
+              border-radius: 58%;
+              opacity: 0.8;
+            "
+          />
+
+          <p
+            style="
+              font-size: 12px;
+              font-family: cursive;
+              font-weight: 800;
+              top: 96px;
+              left: 570px;
+              position: absolute;
+            "
+          >
+            <%= screenshot.firstName %>
+          </p>
+
+          <p
+            style="
+              font-size: 12px;
+              font-family: cursive;
+              font-weight: 800;
+              top: 46px;
+              left: 74px;
+              position: absolute;
+            "
+          >
+            <%= screenshot.firstName %>
+          </p>
         </div>
+
+        <a href="/user/bd/<%= screenshot.userId %>/5">
+          <img class="path" src="/path-6-1@1x.png" alt="" />
+        </a>
       </div>
 
       <% }); %>
