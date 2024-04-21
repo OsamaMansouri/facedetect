@@ -80,7 +80,7 @@
         opacity: 1;
         position: absolute;
         top: calc(50% + 47px);
-        width: 251px;
+        width: 274px;
       }
 
       .btn {
@@ -131,7 +131,7 @@
   </head>
   <body>
     <div class="main">
-      <img src="/image-8-1@1x.png" alt="Centered Image" />
+      <img src="/image-8-1@1x-blank.png" alt="Centered Image" />
 
       <% userData.forEach((screenshot) => { %> <% const imagePath =
       screenshot.backgroundOutput.replace(/\\/g, '/').split('public/')[1]; %>
@@ -139,6 +139,13 @@
         class="image-screenface"
         src="/<%= imagePath %>"
         alt="Centered Image"
+        style="
+          -webkit-border-radius: 50%;
+          -ms-border-radius: 50%;
+          -o-border-radius: 50%;
+          border-radius: 58%;
+          opacity: 0.8;
+        "
       />
 
       <!--<a href="/bd/1/<%= screenshot.userId%>" class="btn start">CONTINUER</a>-->
