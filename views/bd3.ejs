@@ -11,11 +11,10 @@
     />
     <meta name="og:type" content="website" />
     <meta name="twitter:card" content="photo" />
-    <link rel="stylesheet" type="text/css" href="css/container.css" />
-    <link rel="stylesheet" type="text/css" href="css/styleguide.css" />
-    <link rel="stylesheet" type="text/css" href="css/globals.css" />
+    <link rel="stylesheet" type="text/css" href="/css/styleguide.css" />
+    <link rel="stylesheet" type="text/css" href="/css/globals.css" />
 
-    <style type="text/css">
+    <style>
       .container {
         align-items: flex-start;
         background-color: var(--white);
@@ -55,43 +54,81 @@
       }
 
       .container .image-6 {
-        height: 201px;
-        left: 1257px;
+        height: 107px;
+        left: 1164px;
         object-fit: cover;
         position: absolute;
-        top: 277px;
-        width: 136px;
+        top: 576px;
+        width: 120px;
       }
 
       .container .image-19 {
-        height: 94px;
-        left: 1160px;
+        height: 87px;
+        left: 1089px;
         object-fit: cover;
         position: absolute;
-        top: 621px;
-        width: 64px;
+        top: 368px;
+        width: 98px;
+      }
+
+      .container .image-20 {
+        height: 39px;
+        left: 957px;
+        object-fit: cover;
+        position: absolute;
+        top: 128px;
+        width: 40px;
       }
     </style>
   </head>
 
   <body style="margin: 0; background: #ffffff">
     <div class="container-center-horizontal">
+      <% userData.forEach((screenshot) => { %> <% const imagePath =
+      screenshot.backgroundOutput.replace(/\\/g, '/').split('public/')[1]; %>
+
       <div class="container screen">
-        <a href="/pg">
-          <img class="path" src="img/path-5-1@1x.png" alt="Path 5" />
+        <a href="/user/bd/<%= screenshot.userId %>/2">
+          <img class="path" src="/path-5-1@1x.png" alt="Path 5" />
         </a>
         <div class="overlap-group1">
           <div class="image-container">
-            <img class="image-9" src="img/image-9@1x.png" alt="" />
-            <img class="image-10" src="img/image-10@1x.png" alt="" />
+            <img class="image-9" src="/image-13@1x.png" alt="" />
+            <img class="image-10" src="/image-14@1x.png" alt="" />
           </div>
-          <img class="image-6" src="img/image-6@1x.png" alt="" />
-          <img class="image-19" src="img/image-19@1x.png" alt="" />
+          <img
+            class="image-6"
+            style="
+              -webkit-border-radius: 50%;
+              -ms-border-radius: 50%;
+              -o-border-radius: 50%;
+              border-radius: 58%;
+              opacity: 0.8;
+            "
+            src="/<%= imagePath %>"
+            alt=""
+          />
+
+          <img
+            class="image-19"
+            src="/<%= imagePath %>"
+            alt=""
+            style="
+              -webkit-border-radius: 50%;
+              -ms-border-radius: 50%;
+              -o-border-radius: 50%;
+              border-radius: 58%;
+              opacity: 0.8;
+            "
+          />
         </div>
-        <a href="/pg2">
-          <img class="path" src="img/path-6-1@1x.png" alt="" />
+
+        <a href="/user/bd/<%= screenshot.userId %>/4">
+          <img class="path" src="/path-6-1@1x.png" alt="" />
         </a>
       </div>
+
+      <% }); %>
     </div>
   </body>
 </html>

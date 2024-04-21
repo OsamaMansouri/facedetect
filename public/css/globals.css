@@ -1,0 +1,351 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+/* The following line is used to measure usage of this code. You can remove it if you want. */
+@import url("https://px.animaapp.com/6522e26525a5f136eb81c61b.6522e26525a5f136eb81c61e.h47S61i.hcp.png");
+
+@font-face {
+  font-family: "NexaHeavy-Regular";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/Nexa Heavy.otf") format("opentype");
+}
+@font-face {
+  font-family: "NexaBold-Regular";
+  font-style: normal;
+  font-weight: 700;
+  src: url("../fonts/Nexa Light.otf") format("opentype");
+}
+
+
+.screen a {
+  display: contents;
+  text-decoration: none;
+}
+
+.container-center-horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  pointer-events: none;
+  width: 100%;
+}
+
+.container-center-horizontal > * {
+  flex-shrink: 0;
+  pointer-events: auto;
+}
+
+.auto-animated div {
+  --z-index: -1;
+  opacity: 0;
+  position: absolute;
+}
+
+.auto-animated input {
+  --z-index: -1;
+  opacity: 0;
+  position: absolute;
+}
+
+.auto-animated .container-center-vertical,
+.auto-animated .container-center-horizontal {
+  opacity: 1;
+}
+
+.listeners-active,
+.listeners-active * {
+  pointer-events: auto;
+}
+
+.hidden,
+.hidden * {
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.listeners-active-click,
+.listeners-active-click * {
+  cursor: pointer;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.path {
+  cursor: pointer;
+  height: 124px;
+  margin-top: 478.0px;
+  object-fit: cover;
+  width: 124px;
+}
+
+.mask-group-4 {
+  display: flex;
+  height: 1080px;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  width: 1494px;
+}
+
+.group-11 {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  margin-left: -20px;
+  margin-right: -14px;
+  width: 1528px;
+}
+
+.image {
+  object-fit: cover;
+  position: absolute;
+}
+
+.mask-group-5 {
+  display: flex;
+  height: 1080px;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  width: 1507px;
+}
+
+.group-12 {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  margin-left: -13px;
+  margin-right: -13px;
+  width: 1533px;
+}
+
+.path-6 {
+  margin-left: 25px;
+}
+
+.path-5 {
+  cursor: pointer;
+  height: 124px;
+  margin-top: 478.0px;
+  object-fit: cover;
+  width: 124px;
+}
+
+.mask-group-6 {
+  display: flex;
+  height: 1080px;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  width: 1484px;
+}
+
+.group-13 {
+  align-items: flex-start;
+  display: flex;
+  flex: 1;
+  margin-left: -17px;
+  margin-right: -15px;
+  min-width: 1516px;
+}
+
+.x52a488db89066f84a0ff1d4a58711f93-C61RwL {
+  --z-index: 0;
+  background-color: transparent;
+  background-image: url(../img/52a488db89066f84a0ff1d4a58711f93-1@1x.png);
+  background-size: 100% 100%;
+  height: 1080px;
+  left: 0px;
+  object-fit: cover;
+  opacity: 1;
+  position: absolute;
+  top: 0px;
+  width: 1920px;
+}
+
+.rectangle-7-7iuo0N {
+  --z-index: 0;
+  background-color: #ffffff;
+  border-radius: 17px;
+  box-shadow: inset 0px 3px 6px #00000069;
+  height: 65px;
+  left: 0px;
+  opacity: 1;
+  position: absolute;
+  top: 0px;
+  width: 100%;
+}
+
+.rectangle-8-7iuo0N {
+  --z-index: 1;
+  background-color: #ffffff;
+  border-radius: 17px;
+  box-shadow: inset 0px 3px 6px #00000080;
+  height: 65px;
+  left: 0px;
+  opacity: 1;
+  position: absolute;
+  top: calc(23.37% - 15px);
+  width: 100%;
+}
+
+.rectangle-13-7iuo0N {
+  --z-index: 2;
+  background-color: #ffffff;
+  border-radius: 17px;
+  box-shadow: inset 0px 3px 6px #00000080;
+  height: 65px;
+  left: 0px;
+  opacity: 1;
+  position: absolute;
+  top: calc(46.73% - 31px);
+  width: 100%;
+}
+
+.rectangle-15-7iuo0N {
+  --z-index: 4;
+  background-color: transparent;
+  border: 4px solid;
+  border-color: #ffffff;
+  border-radius: 17px;
+  bottom: calc(29.67% - 21px);
+  height: 69px;
+  opacity: 1;
+  position: absolute;
+  right: 1px;
+  width: 216px;
+}
+
+.name-7iuo0N {
+  --z-index: 6;
+  background-color: transparent;
+  color: #009a4a;
+  font-family: 'NexaHeavy-Regular', Helvetica;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 400;
+  height: 29px;
+  letter-spacing: 0.00px;
+  line-height: 31px;
+  opacity: 1;
+  position: absolute;
+  right: calc(49.64% - 29px);
+  text-align: left;
+  top: calc(26.07% - 8px);
+  white-space: nowrap;
+  width: 58px;
+}
+
+.hichambengmailcom-7iuo0N {
+  --z-index: 7;
+  background-color: transparent;
+  color: #009a4a;
+  font-family: 'NexaHeavy-Regular', Helvetica;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 400;
+  height: 29px;
+  left: 52px;
+  letter-spacing: 0.00px;
+  line-height: 31px;
+  opacity: 1;
+  position: absolute;
+  text-align: left;
+  top: calc(47.24% - 14px);
+  white-space: nowrap;
+  width: calc(100.00% - 100px);
+}
+
+.hicham-7iuo0N {
+  --z-index: 10;
+  background-color: transparent;
+  color: #009a4a;
+  font-family: 'NexaHeavy-Regular', Helvetica;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 400;
+  height: 29px;
+  left: calc(49.08% - 55px);
+  letter-spacing: 0.00px;
+  line-height: 31px;
+  opacity: 1;
+  position: absolute;
+  text-align: left;
+  top: 19px;
+  white-space: nowrap;
+  width: 113px;
+}
+
+.line-2-rFtkmY {
+  --z-index: 1;
+  background-color: transparent;
+  background-image: url(../img/line-2-2@1x.png);
+  background-size: 100% 100%;
+  height: calc(100.00% - 73px);
+  left: -36px;
+  object-fit: cover;
+  opacity: 1;
+  position: absolute;
+  top: 37px;
+  transform: rotate(-90deg);
+  width: 84px;
+}
+
+.line-2-kJlB0L {
+  --z-index: 1;
+  background-color: transparent;
+  background-image: url(../img/line-2-2@1x.png);
+  background-size: 100% 100%;
+  height: calc(100.00% - 73px);
+  left: -36px;
+  object-fit: cover;
+  opacity: 1;
+  position: absolute;
+  top: 37px;
+  transform: rotate(-270deg);
+  width: 84px;
+}
+
+.image-6-C61RwL {
+  --z-index: 3;
+  background-color: transparent;
+  background-image: url(../img/image-6-1@1x.png);
+  background-size: 100% 100%;
+  height: 398px;
+  left: 825px;
+  object-fit: cover;
+  opacity: 1;
+  position: absolute;
+  top: 142px;
+  width: 270px;
+}
+
+.group-8-C61RwL {
+  --z-index: 4;
+  background-color: transparent;
+  cursor: pointer;
+  height: 65px;
+  left: 734px;
+  opacity: 1;
+  position: absolute;
+  top: 898px;
+  width: 451px;
+}
+
+.path-4-3cZhlu {
+  --z-index: 0;
+  background-color: transparent;
+  background-image: url(../img/path-4@1x.png);
+  background-size: 100% 100%;
+  height: calc(100.00% + 90px);
+  left: -55px;
+  object-fit: cover;
+  opacity: 1;
+  position: absolute;
+  top: -28px;
+  width: calc(100.00% + 90px);
+}

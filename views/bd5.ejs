@@ -1,0 +1,130 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <!--<meta name=description content="This site was generated with Anima. www.animaapp.com"/>-->
+    <!-- <link rel="shortcut icon" type=image/png href="https://animaproject.s3.amazonaws.com/home/favicon.png" /> -->
+    <meta name="viewport" content="width=1920, maximum-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="https://animaproject.s3.amazonaws.com/home/favicon.png"
+    />
+    <meta name="og:type" content="website" />
+    <meta name="twitter:card" content="photo" />
+    <link rel="stylesheet" type="text/css" href="/css/styleguide.css" />
+    <link rel="stylesheet" type="text/css" href="/css/globals.css" />
+
+    <style>
+      .container {
+        align-items: flex-start;
+        background-color: var(--white);
+        display: flex;
+        gap: 16px;
+        padding: 0 57px;
+        width: 1920px;
+      }
+
+      .container .overlap-group1 {
+        height: 1080px;
+        position: relative;
+        width: 1526px;
+      }
+
+      .screen a {
+        display: contents;
+        text-decoration: none;
+      }
+
+      .container .image-9 {
+        height: 1080px;
+        left: 0;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        width: 766px;
+      }
+
+      .container .image-10 {
+        height: 1080px;
+        left: 762px;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        width: 764px;
+      }
+
+      .container .image-6 {
+        height: 128px;
+        left: 180px;
+        object-fit: cover;
+        position: absolute;
+        top: 879px;
+        width: 138px;
+      }
+
+      .container .image-19 {
+        height: 128px;
+        left: 917px;
+        object-fit: cover;
+        position: absolute;
+        top: 567px;
+        width: 118px;
+      }
+
+      .container .image-20 {
+        height: 39px;
+        left: 957px;
+        object-fit: cover;
+        position: absolute;
+        top: 128px;
+        width: 40px;
+      }
+    </style>
+  </head>
+
+  <body style="margin: 0; background: #ffffff">
+    <div class="container-center-horizontal">
+      <% userData.forEach((screenshot) => { %> <% const imagePath =
+      screenshot.backgroundOutput.replace(/\\/g, '/').split('public/')[1]; %>
+
+      <div class="container screen">
+        <a href="/user/bd/<%= screenshot.userId %>/4">
+          <img class="path" src="/path-5-1@1x.png" alt="Path 5" />
+        </a>
+        <div class="overlap-group1">
+          <div class="image-container">
+            <img class="image-9" src="/image-17@1x.png" alt="" />
+            <img class="image-10" src="/image-18@1x.png" alt="" />
+          </div>
+          <img
+            class="image-6"
+            style="
+              -webkit-border-radius: 50%;
+              -ms-border-radius: 50%;
+              -o-border-radius: 50%;
+              border-radius: 58%;
+              opacity: 0.8;
+            "
+            src="/<%= imagePath %>"
+            alt=""
+          />
+
+          <img
+            class="image-19"
+            src="/<%= imagePath %>"
+            alt=""
+            style="
+              -webkit-border-radius: 50%;
+              -ms-border-radius: 50%;
+              -o-border-radius: 50%;
+              border-radius: 58%;
+              opacity: 0.8;
+            "
+          />
+        </div>
+      </div>
+
+      <% }); %>
+    </div>
+  </body>
+</html>
