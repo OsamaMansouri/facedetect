@@ -239,8 +239,14 @@
   <body>
     <% userData.forEach((screenshot) => { %>
     <div class="main">
-      <img class="blur" src="/image-8-1@1x.png" alt="Centered Image" />
-
+      <% const imagePath = screenshot.screenshotPath.replace(/\\/g,
+      '/').split('public/')[1]; %>
+      <img
+        class="cover-image"
+        src="/<%= imagePath %>"
+        alt="Centered Image"
+        style="width: 558px"
+      />
       <div class="section">
         <div class="step step-1 active">
           <div class="step-content">

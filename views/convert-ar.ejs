@@ -215,7 +215,14 @@
   </head>
   <body>
     <div class="main" style="text-align: right">
-      <img class="blur" src="/image-8-1@1x.png" alt="Centered Image" />
+      <% userData.forEach((screenshot) => { %> <% const imagePath =
+      screenshot.screenshotPath.replace(/\\/g, '/').split('public/')[1]; %>
+      <img
+        class="cover-image"
+        src="/<%= imagePath %>"
+        alt="Centered Image"
+        style="width: 558px"
+      />
 
       <div class="section">
         <div class="step step-1 active">
@@ -229,7 +236,7 @@
 
             <br />
             <!-- Form to trigger conversion -->
-            <% userData.forEach((screenshot) => { %>
+
             <form
               id="convertForm"
               action="/user/convertar/<%= screenshot.userId %>"
