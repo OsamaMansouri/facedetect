@@ -406,19 +406,10 @@ const transporter = nodemailer.createTransport({
   port: 587, // or 465 for SSL/TLS
   secure: false, // true for SSL/TLS
   auth: {
-    user: "support@ocp.preprodagency.com",
-    pass: "@ocp.preprodagency.com",
+    user: "support@domaines-agricoles.preprodagency.com",
+    pass: "7TCmfD'f!RI56@_",
   },
 });
-
-// Email configuration
-const mailOptions = {
-  from: "support@ocp.preprodagency.com",
-  to: "mansouri.osama@gmail.com",
-  subject:
-    "Découvrez votre bande dessinée personnalisée par Les Domaines Agricoles !",
-  text: "This is an email from BD.",
-};
 
 app.get("/user/convert/:userId", async (req, res) => {
   try {
@@ -501,7 +492,7 @@ app.get("/user/convert/:userId", async (req, res) => {
 
               // Send email
               const mailOptions = {
-                from: "support@ocp.preprodagency.com",
+                from: "support@domaines-agricoles.preprodagency.com",
                 to: userData.email, // Using userData retrieved from the database
                 subject:
                   "Découvrez votre bande dessinée personnalisée par Les Domaines Agricoles !",
@@ -619,7 +610,7 @@ app.get("/user/convertar/:userId", async (req, res) => {
 
               // Send email
               const mailOptions = {
-                from: "support@ocp.preprodagency.com",
+                from: "support@domaines-agricoles.preprodagency.com",
                 to: userData.email, // Using userData retrieved from the database
                 subject:
                   "Découvrez votre bande dessinée personnalisée par Les Domaines Agricoles !",
