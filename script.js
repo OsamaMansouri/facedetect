@@ -10,6 +10,9 @@ const mongoose = require("mongoose");
 const fs = require("fs");
 const bodyParser = require("body-parser");
 const axios = require("axios");
+const nodemailer = require("nodemailer");
+// Import the Screenshot model
+const Screenshot = require("./models");
 
 // Set EJS as the view engine
 const app = express();
@@ -41,9 +44,6 @@ mongoose.connect(process.env.DB, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-
-// Import the Screenshot model
-const Screenshot = require("./models");
 
 // Middleware to parse JSON bodies
 app.use(express.json());
@@ -199,11 +199,13 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/startfr", async (req, res) => {
-  res.render("start");
+  //res.render("start");
+  res.render("form");
 });
 
 app.get("/startar", async (req, res) => {
-  res.render("start-ar");
+  //res.render("start-ar");
+  res.render("form-ar");
 });
 
 app.get("/formfr", async (req, res) => {
@@ -398,6 +400,26 @@ async function getNextUserId() {
 
 // Route to convert image to cartoon
 
+// Create a transporter object
+const transporter = nodemailer.createTransport({
+  host: "smtp.titan.email",
+  port: 587, // or 465 for SSL/TLS
+  secure: false, // true for SSL/TLS
+  auth: {
+    user: "support@ocp.preprodagency.com",
+    pass: "@ocp.preprodagency.com",
+  },
+});
+
+// Email configuration
+const mailOptions = {
+  from: "support@ocp.preprodagency.com",
+  to: "mansouri.osama@gmail.com",
+  subject:
+    "Découvrez votre bande dessinée personnalisée par Les Domaines Agricoles !",
+  text: "This is an email from BD.",
+};
+
 app.get("/user/convert/:userId", async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -470,8 +492,30 @@ app.get("/user/convert/:userId", async (req, res) => {
               screenshot.backgroundOutput = backgroundPath;
               await screenshot.save();
 
-              // Continue with further processing or handling of the generated output
-              //res.json({ cartoonImageURL, backgroundPath });
+              // Retrieve user data from the database based on userId
+              const userData = await Screenshot.findOne({ userId });
+
+              // Render EJS template with user data
+              const ejsTemplate = fs.readFileSync("views/email.ejs", "utf8");
+              const renderedHtml = ejs.render(ejsTemplate, { userData });
+
+              // Send email
+              const mailOptions = {
+                from: "support@ocp.preprodagency.com",
+                to: userData.email, // Using userData retrieved from the database
+                subject:
+                  "Découvrez votre bande dessinée personnalisée par Les Domaines Agricoles !",
+                html: renderedHtml,
+              };
+
+              transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                  console.error("Error sending email:", error);
+                } else {
+                  console.log("Email sent:", info.response);
+                }
+              });
+
               res.redirect(`/user/${userId}`);
             } catch (error) {
               console.error("Error processing background output:", error);
@@ -566,8 +610,30 @@ app.get("/user/convertar/:userId", async (req, res) => {
               screenshot.backgroundOutput = backgroundPath;
               await screenshot.save();
 
-              // Continue with further processing or handling of the generated output
-              //res.json({ cartoonImageURL, backgroundPath });
+              // Retrieve user data from the database based on userId
+              const userData = await Screenshot.findOne({ userId });
+
+              // Render EJS template with user data
+              const ejsTemplate = fs.readFileSync("views/email.ejs", "utf8");
+              const renderedHtml = ejs.render(ejsTemplate, { userData });
+
+              // Send email
+              const mailOptions = {
+                from: "support@ocp.preprodagency.com",
+                to: userData.email, // Using userData retrieved from the database
+                subject:
+                  "Découvrez votre bande dessinée personnalisée par Les Domaines Agricoles !",
+                html: renderedHtml,
+              };
+
+              transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                  console.error("Error sending email:", error);
+                } else {
+                  console.log("Email sent:", info.response);
+                }
+              });
+
               res.redirect(`/userar/${userId}`);
             } catch (error) {
               console.error("Error processing background output:", error);

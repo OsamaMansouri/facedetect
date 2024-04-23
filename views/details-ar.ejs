@@ -4,8 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LES DOMAINES AGRICOLES</title>
+    <link
+      href="https://db.onlinewebfonts.com/c/5ddcd70c0bb7200c88d046ff7dc2145e?family=Nasalization+W05+Heavy+Italic"
+      rel="stylesheet"
+    />
 
     <style>
+      @import url(https://db.onlinewebfonts.com/c/5ddcd70c0bb7200c88d046ff7dc2145e?family=Nasalization+W05+Heavy+Italic);
+
       @font-face {
         font-family: "Janna LT Bold";
         font-style: normal;
@@ -36,7 +42,7 @@
         width: 100%;
         height: 100%;
         background-image: url(/mewbc.png);
-        filter: blur(23.1210994720459px) brightness(101.10082995891571%);
+        /*filter: blur(23.1210994720459px) brightness(101.10082995891571%);*/
         background-color: rgba(0, 0, 0, 0);
         z-index: -1; /* Ensure the blurred layer is behind other content */
       }
@@ -44,7 +50,7 @@
       .main img {
         position: absolute;
         top: 54%;
-        left: 50%;
+        left: 35%;
         transform: translate(-50%, -50%);
         max-width: 100%;
         max-height: 100%;
@@ -57,9 +63,42 @@
         font-size: 2.5rem;
       }
 
+      .image-screenface-nom {
+        text-transform: uppercase;
+        color: #d6202d;
+        -webkit-transform: rotate(-5deg);
+        -moz-transform: rotate(-5deg);
+        transform: rotate(-5deg);
+        font-size: 90px;
+        -webkit-text-stroke-width: 3px;
+        -webkit-text-stroke-color: white;
+        font-family: "Janna LT Bold";
+        top: 24% !important;
+        left: 67.5% !important;
+        --z-index: 3;
+        background-color: transparent;
+        background-size: 100% 100%;
+        position: absolute;
+      }
+
+      .image-text {
+        top: 56% !important;
+        left: 72.5% !important;
+        --z-index: 3;
+        background-color: transparent;
+        background-size: 100% 100%;
+        height: 250px;
+        left: calc(50% - 71px);
+        object-fit: cover;
+        opacity: 1;
+        position: absolute;
+        top: calc(50% + 47px);
+        width: 670px;
+      }
+
       .image-screenface {
         top: 33% !important;
-        left: 49.5% !important;
+        left: 34.6% !important;
         --z-index: 3;
         background-color: transparent;
         background-size: 100% 100%;
@@ -70,18 +109,6 @@
         position: absolute;
         top: calc(50% + 47px);
         width: 251px;
-      }
-
-      .start {
-        font-family: "Janna LT Bold";
-        color: #019a4a;
-        top: 84% !important;
-        left: 40% !important;
-        position: absolute;
-        background-color: #ffffff;
-        border: #019a4a;
-        text-align: center;
-        text-decoration: none;
       }
 
       .ocp {
@@ -96,14 +123,48 @@
         top: 984px !important;
         width: 282px;
       }
+
+      .btn {
+        padding: 1.375rem 4.5rem;
+        border-radius: 10px;
+        box-shadow: -10px 17px 30px #000000b3;
+        font-size: 2.5rem;
+      }
+
+      .start {
+        font-family: "Janna LT Bold";
+        color: #019a4a;
+        top: 84% !important;
+        left: 39% !important;
+        position: absolute;
+        background-color: #ffffff;
+        border: #019a4a;
+        text-align: center;
+        text-decoration: none;
+      }
     </style>
   </head>
   <body>
-    <div class="main">
+    <div
+      class="main"
+      style="
+        background: linear-gradient(
+          239.76deg,
+          rgba(11, 123, 211, 0.71) 32.42%,
+          rgba(9, 93, 160, 0.36) 58.24%,
+          rgba(6, 62, 106, 0) 72.81%
+        );
+      "
+    >
+      <% userData.forEach((screenshot) => { %>
+
       <img src="/image-8-1@1x-blank.png" alt="Centered Image" />
 
-      <% userData.forEach((screenshot) => { %> <% const imagePath =
-      screenshot.backgroundOutput.replace(/\\/g, '/').split('public/')[1]; %>
+      <p class="image-screenface-nom"><%= screenshot.firstName%></p>
+      <img class="image-text" src="/image-33@1x-ar.png" alt="Centered Image" />
+
+      <% const imagePath = screenshot.backgroundOutput.replace(/\\/g,
+      '/').split('public/')[1]; %>
       <img
         class="image-screenface"
         src="/<%= imagePath %>"
@@ -119,7 +180,7 @@
 
       <a href="/user/bdar/<%= screenshot.userId%>/1" class="btn start">اكمل</a>
 
-      <% }); %>
+      > <% }); %>
 
       <img class="ocp" src="/logo.png" alt="Centered Image" />
     </div>
