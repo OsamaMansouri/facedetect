@@ -614,7 +614,7 @@ app.get("/user/convertar/:userId", async (req, res) => {
               const userData = await Screenshot.findOne({ userId });
 
               // Render EJS template with user data
-              const ejsTemplate = fs.readFileSync("views/email.ejs", "utf8");
+              const ejsTemplate = fs.readFileSync("views/email-ar.ejs", "utf8");
               const renderedHtml = ejs.render(ejsTemplate, { userData });
 
               // Send email
